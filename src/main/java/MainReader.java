@@ -1,3 +1,10 @@
+/**
+ * Задача класса:
+ *  получить путь к файлу, который нужно считать и передать его в контроллер,
+ *  другими словами дальше по ходу алгоритма.
+ *  загрузить ресурсы страницы из сформированного отдельного файла sample.fxml
+ */
+
 import DependencePack.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

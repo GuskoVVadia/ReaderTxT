@@ -29,27 +29,28 @@ import java.util.concurrent.BlockingQueue;
 
 public class Controller implements Initializable {
 
-    private static Stage primaryStage;
-    private static Scene sceneApp;
-    private static Point2D dimensionApp;
+    private static Stage primaryStage;  //контейнер для сцены.
+    private static Scene sceneApp;      //контейнер для графических элементов внутри Stage
+    private static Point2D dimensionApp;    //массив для инкаплусяции изменяющихся размеров сцены
 
-    private static PageComposition pageComposition;
-    private Path filePathApp;
+    private static PageComposition pageComposition;     //класс, отвтественный за формирование страницы в окне приложения
+    private Path filePathApp;       //путь к файлу, которое ждёт приложения от пользователя
 
-    public FlowPane pane;
-    public VBox BoxGlyphGroup;
+    public FlowPane pane;       //панель компоновки из sample.fxml
+    public VBox BoxGlyphGroup;  //контейнер, с которым происходит работа приложения, т.е. в него происходит наполнение
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    //метод получения основного контейнера и запуск графической платформы Fx.
     public void setStage(Stage stage){
         Controller.primaryStage = stage;
         primaryStage.setTitle("Reader");
-        sceneApp = new Scene(pane, 1000.0, 500.0);
+        sceneApp = new Scene(pane, 1000.0, 500.0);  //установка начальных габаритов сцены
         primaryStage.setScene(sceneApp);
 
-        //создаём композицию страницы
+        //создаём композицию страницы, инициализация класса ответственного за наполнение окна и работу приложения
         pageComposition = new PageComposition(this.filePathApp, BoxGlyphGroup, sceneApp.getWidth(), sceneApp.getHeight());
 
         //создаём массив и заполняем координаты точки

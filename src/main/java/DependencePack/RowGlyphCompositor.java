@@ -1,3 +1,8 @@
+/**
+ * Задача класса:
+ *  работа со строками приложения
+ *  формирование готовых строк по заданной ширине и передача их запрашиваемой стороне
+ */
 package DependencePack;
 
 import javafx.scene.canvas.Canvas;
@@ -7,17 +12,32 @@ import java.util.LinkedList;
 
 public class RowGlyphCompositor{
 
-    private ArrayList<GlyphText> listGlyph;
-    private double widthPage;
+    private ArrayList<GlyphText> listGlyph; //итоговый list текстовых единиц
+    private double widthPage;   //переменная ширины строк, получаемая из ширины сцену
+    //структура, что хранит строки пересозданные по указанной ширине
     private ArrayList<ArrayList<GlyphText>> arrayListsRowReady;
 
+    /**
+     * Конструктор класса
+     * @param listGlyph получаем структуру, хранящую преобразованные текстовые единицы
+     * @param width ширина сцены, для формирования строк длинной не превышающей значение ширины
+     */
     public RowGlyphCompositor(ArrayList<GlyphText> listGlyph, double width) {
         this.listGlyph = listGlyph;
         this.widthPage = width;
         this.arrayListsRowReady = new ArrayList<>();
-        transformRow();
+        transformRow(); //после получения данных формируем строки
     }
 
+    /**
+     * метод формирования строк.
+     * Проходится по символам из listGlyph и по ширине окна выполняем комплектацию строк
+     * Если слово может поместится на строку - добавляем в строку
+     * Если слово не помещается полностью, но при переносе на след. строку поместится - переносим на след. строку
+     * Если слово имеет длинну превышающую ширину окна, переносим слово.
+     *
+     * Для упрощения алгоритмы обхода здесь рассматриваются только GlyphText единицы.
+     */
     private void transformRow(){
 
         //итоговый массив, содержащий укомплектованные строки.
@@ -30,9 +50,8 @@ public class RowGlyphCompositor{
         double lengthWord = 0;                             //переменная длины слова
         boolean isPreparedWord = false;                 //флаг готовности слова
 
-        boolean isPreparedRow = false;
+        boolean isPreparedRow = false;              //флаг готовности строки
 
-//        for (Glyph glyph: this.listGlyph){
         for (int i = 0; i < this.listGlyph.size(); i++) {
 
             GlyphText glyphTextCurrent = listGlyph.get(i);
@@ -149,6 +168,13 @@ public class RowGlyphCompositor{
 
     }
 
+    /**
+     * Метод передачи строки Canvas
+     * @param i номер строки, которую нужно сформировать и передать
+     * @param canvasLinkedList структура данных, готовых для размещения на страницу
+     * @return true - если передача сформированной сттроки состоялась,
+     * false - в обратном случае - т.е. величина i вышла за пределы массива
+     */
     public boolean getRow(int i, LinkedList<Canvas> canvasLinkedList){
         if (i >= this.arrayListsRowReady.size()){
             return false;
@@ -160,16 +186,21 @@ public class RowGlyphCompositor{
         return true;
     }
 
-
+    /**
+     * Получаем новые данные ширины и переформировываем строки в соответствии с указанной шириной
+     * @param width ширина сцены
+     */
     public void setWidthPage(double width){
         this.widthPage = width;
         transformRow();
     }
 
+    /**
+     * Передача размера массива, что хранит в себе готовые строки
+     * @return размер массива
+     */
     public int getLength(){
         return this.arrayListsRowReady.size();
     }
-
-
 
 }

@@ -2,7 +2,7 @@
  * Задача класса:
  *      пройтись по списку единиц изображения, найти тектовые единицы и считать слова.
  * Если нужные текстовые единицы - класс декорирует их, путём увеличения их предыдущего значения шрифта
- * и увеличение его на 3 единицы (в соответствии с ТЗ).
+ * и увеличение его.
  * Счёт слов происходит по пробелам и переносам каретки в тексте.
  * Если глиф не текстовый - значений пока не определено.
  */
@@ -12,17 +12,26 @@ import java.util.ArrayList;
 
 public class TwoWordDecorator {
 
-    private double sizeFontAdd;
+    private double sizeFontAdd; //переменная величина на которую нужно увеличить шрифт выбранных слов
 
+    /**
+     * Конструктор класса
+     * @param addValue получаем величину увеличения шрифта
+     */
     public TwoWordDecorator(double addValue) {
         this.sizeFontAdd = addValue;
     }
 
+    /**
+     * Метод выполняющий поиск двух слов рядом.
+     * @param glyphList структура данных, хранящая текстовые глифы, по которым будет происходить поиск и
+     *                  которые будут пересобраны.
+     */
     public void decorated(ArrayList<GlyphText> glyphList){
 
-        int scoreWord = 1;
-        int countSpace = 0;
-        boolean isWordPrepared = false;
+        int scoreWord = 1;  //переменная номера слова
+        int countSpace = 0; //количество пробелов в искомой строке/структуре
+        boolean isWordPrepared = false; //флаг готовности слова
 
         for (int i = 0; i < glyphList.size(); i++) {
             Glyph glyphTemp = glyphList.get(i);

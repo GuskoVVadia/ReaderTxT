@@ -12,36 +12,43 @@ import javafx.scene.text.Text;
 
 public class GlyphText extends Glyph{
 
+    //статичный класс построитель
     public static class Builder{
-        private String valueGlyphTextBuilder;
-        private double sizeFontGlyphTextBuilder = 12.0;
-        private String nameFontGlyphTextBuilder = "Arial";
-        private Font fontGlyphTextBuilder;
-        private DimensionGlyph dimensionGlyphTextBuilder;
+        private String valueGlyphTextBuilder;   //символ, который будет выведен этим глифом (буква, пробел, перенос каретки)
+        private double sizeFontGlyphTextBuilder = 12.0; //шрифт по умолчанию
+        private String nameFontGlyphTextBuilder = "Arial";  //название шрифта по умолчанию
+        private Font fontGlyphTextBuilder;  //шрифт, что будет использоваться glyph для отрисовки своего значения
+        private DimensionGlyph dimensionGlyphTextBuilder;   //класс габаритов (ширины, высоты) символа
 
+        //конструктор строителя принимает символ
         public Builder(String value){
             this.valueGlyphTextBuilder = value;
         }
 
+        //конструктор строителя принимает аналогичный glyph, что бы получить значение типа String
         public Builder(GlyphText glyphText){
             this.valueGlyphTextBuilder = glyphText.propertiesGlyph.getValueTextGlyph();
         }
 
+        //установка размеров шрифта
         public Builder sizeFont(double sizeFont){
             this.sizeFontGlyphTextBuilder = sizeFont;
             return this;
         }
 
+        //установка имени шрифта
         public Builder nameFont(String nameFont){
             this.nameFontGlyphTextBuilder = nameFont;
             return this;
         }
 
+        //установка шрифта
         public Builder font(Font font){
             this.fontGlyphTextBuilder = font;
             return this;
         }
 
+        //построение класса GlyphText и небольшая проверка на изменившиеся значения, если нет - тогда по умолчанию
         public GlyphText build(){
             if (this.fontGlyphTextBuilder == null){
                 this.fontGlyphTextBuilder = new Font(this.nameFontGlyphTextBuilder,
@@ -60,10 +67,12 @@ public class GlyphText extends Glyph{
             text.setText(this.valueGlyphTextBuilder);
             double width = text.getBoundsInLocal().getWidth();
             double height = text.getBoundsInLocal().getHeight();
+            text = null;
             return new DimensionGlyph(width, height);
         }
     }
 
+    //закрытый конструктор класса, доступный только статическому строителю
     private GlyphText (Builder builder){
         this.propertiesGlyph = new PropertiesGlyph(
                 "text", builder.fontGlyphTextBuilder, builder.valueGlyphTextBuilder);
@@ -71,6 +80,8 @@ public class GlyphText extends Glyph{
     }
 
 
+    //описание как сформировать Canvas из этого глифа.
+    //Формирование возвращаемого объекта происходит из ширины и высота размеров буквы при написании указанным шрифтом
     @Override
     protected Canvas getCanvasGlyph() {
 
