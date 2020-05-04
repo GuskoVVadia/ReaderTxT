@@ -13,7 +13,6 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -21,27 +20,21 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class Controller implements Initializable {
+public class Controller{
 
     private static Stage primaryStage;  //контейнер для сцены.
     private static Scene sceneApp;      //контейнер для графических элементов внутри Stage
     private static Point2D dimensionApp;    //массив для инкаплусяции изменяющихся размеров сцены
 
+    private static ArrayList<String> listStringFromFile;
     private static PageComposition pageComposition;     //класс, отвтественный за формирование страницы в окне приложения
-    private Path filePathApp;       //путь к файлу, которое ждёт приложения от пользователя
 
     public FlowPane pane;       //панель компоновки из sample.fxml
     public VBox BoxGlyphGroup;  //контейнер, с которым происходит работа приложения, т.е. в него происходит наполнение
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
 
     //метод получения основного контейнера и запуск графической платформы Fx.
     public void setStage(Stage stage){
@@ -51,7 +44,7 @@ public class Controller implements Initializable {
         primaryStage.setScene(sceneApp);
 
         //создаём композицию страницы, инициализация класса ответственного за наполнение окна и работу приложения
-        pageComposition = new PageComposition(this.filePathApp, BoxGlyphGroup, sceneApp.getWidth(), sceneApp.getHeight());
+        pageComposition = new PageComposition(listStringFromFile, BoxGlyphGroup, sceneApp.getWidth(), sceneApp.getHeight());
 
         //создаём массив и заполняем координаты точки
         BlockingQueue<Point2D> dimensionChangeQueue = new ArrayBlockingQueue<>(1);
@@ -132,8 +125,8 @@ public class Controller implements Initializable {
         Controller.dimensionApp = dimensionApp;
     }
 
-    //получение пути к файлу
-    public void setFilePathApp(Path filePathApp) {
-        this.filePathApp = filePathApp;
+    public void setListStringFromFile(ArrayList<String> listStringFromFile) {
+        Controller.listStringFromFile = listStringFromFile;
     }
+
 }

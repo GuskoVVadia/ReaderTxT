@@ -5,38 +5,21 @@
 package DependencePack;
 
 import java.util.ArrayList;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-public class GlyphTextCompositor{
-
-    private ExecutorService executorService;    //сервис, предоставляющий потоки
-    private AtomicInteger atomicInteger;    // Атомарное число- счётчик для разделения задач на части
+public class GlyphTextCompositor {
 
     public GlyphTextCompositor(){
-        this.executorService = Executors.newFixedThreadPool(3); //установка 3 потоков для работы
-        this.atomicInteger = new AtomicInteger(0);  //установка счётчика в начальную позицию
     }
 
-    /**
-     * метод формируем GlyphText-единицу из String единицы и добавляет получившийся объект в ArrayList
-     * @param compositionListGlyph  структура для хранения получившихся данных, т.е. GlyphText
-     * @param startListString   структура, которая предоставляет данные, для создания GlyphText единиц
-     */
-    public void compose(ArrayList<GlyphText> compositionListGlyph, final ArrayList<String> startListString) {
+    public void compose(ArrayList<GlyphText> compositionListGlyph, ArrayList<String> startListString) {
 
-        while (atomicInteger.get() < startListString.size()) {
-            Future<?> future = executorService.submit(new ReadWriteBlockStringTwo(atomicInteger, startListString, compositionListGlyph));
-            try {
-                future.get();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        for (int i = 0; i < startListString.size(); i++) {
+            compositionListGlyph.add(new GlyphText.Builder(startListString.get(i)).sizeFont(16).build());
         }
-
-        //по окончанию работы присваиваем null.
-        executorService.shutdown();
-        executorService = null;
-        atomicInteger = null;
     }
 }

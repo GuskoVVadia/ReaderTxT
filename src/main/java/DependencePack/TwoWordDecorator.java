@@ -34,7 +34,7 @@ public class TwoWordDecorator {
         boolean isWordPrepared = false; //флаг готовности слова
 
         for (int i = 0; i < glyphList.size(); i++) {
-            Glyph glyphTemp = glyphList.get(i);
+            GlyphText glyphTemp = glyphList.get(i);
 
                 if (glyphTemp.propertiesGlyph.getValueTextGlyph().equals(" ") || glyphTemp.propertiesGlyph.getValueTextGlyph().equals("\n")){
                     if (isWordPrepared){
@@ -49,7 +49,7 @@ public class TwoWordDecorator {
                     isWordPrepared = true;
                     if (scoreWord < 3){
                         double sizeFontThisGlyph = glyphTemp.propertiesGlyph.getFontGlyph().getSize();
-                        GlyphText decorGlyph = new GlyphText.Builder((GlyphText) glyphTemp).sizeFont(sizeFontAdd + sizeFontThisGlyph).build();
+                        GlyphText decorGlyph = new GlyphText.Builder(glyphTemp).sizeFont(sizeFontAdd + sizeFontThisGlyph).build();
                         glyphList.set(i, decorGlyph);
                     }
                 }

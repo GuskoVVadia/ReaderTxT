@@ -1,11 +1,3 @@
-/**
- * модуль чтения файла.
- * Задача - считать из файла текст, разбить на отдельные символы и передать список символом при запросе.
- * В случае неудачи работы с файлом - формируется текстовый лист сообщения об ошибке чтения и тоже передаётся по запросу
- * текста.
- * Считывание производится текстовых файлом, с кодировкой UTF-8.
- * Лист ошибочного чтения формируется при отлове ошибки чтения файла.
- */
 package DependencePack;
 
 import java.io.IOException;
@@ -17,15 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UnitReadingFile {
+    public ArrayList<String> getList(Path path) throws IOException {
 
-    public ArrayList<String> getSymbolComposition (Path path){
-        List<String> listFileRow;
-        try {
-            listFileRow =  Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            listFileRow = new ArrayList<>(Arrays.asList("Ошибка чтения файла"));
-        }
-
+        List<String> listFileRow =  Files.readAllLines(path, StandardCharsets.UTF_8);
         ArrayList<String> listSymbol = new ArrayList<>();
 
         for (int i = 0; i < listFileRow.size(); i++) {
@@ -34,10 +20,9 @@ public class UnitReadingFile {
             listFileRow.set(i, null);
         }
 
+
         listFileRow.clear();
         listFileRow = null;
         return listSymbol;
     }
-
-
 }

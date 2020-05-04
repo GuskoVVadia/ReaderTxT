@@ -16,7 +16,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,15 +31,13 @@ public class PageComposition {
 
     /**
      * Конструктор класса
-     * @param path путь к текстовому файлу
+     * @param startListString данные, прочитанные из файла
      * @param VBoxApp блок-родитель, куда наполнять страницу
      * @param width требуеммая ширина страницы
      * @param height требуемая высота страницы
      */
-    public PageComposition(Path path, VBox VBoxApp, double width, double height){
+    public PageComposition(ArrayList<String> startListString, VBox VBoxApp, double width, double height){
 
-        //получаем начальные данные из файла, инкапсулированные в ArrayList
-        ArrayList<String> startListString = new UnitReadingFile().getSymbolComposition(path);
         //формируем ArrayList - структуру данных, с которой будем работать дальше
         ArrayList<GlyphText> arrayListGlyph = new ArrayList<>(startListString.size());
 
