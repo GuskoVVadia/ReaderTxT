@@ -1,0 +1,7 @@
+Therearemanywaystoperformresearcheachdependingonthefieldofinvestigation.
+When conducting any kind of investigation, first I draw a plan of what I need to find and, most importantly, where I may find it. 
+In scientific research: 
+Usually, an object of my investigation belongs to the English domain and I use google.com or set advance search options in other engines of my preference. When the first useful link is found, I look there for key words – terms, names, dates – which might be helpful to come across what I am searching for. Moreover, I take advantage of special searching operators like strict conformity (“Noah story”), omission of words (Trojan horse – windows – computer) etc.
+
+In translation:
+As a translator, I always consult dictionaries and encyclopaedias, work with corpora (e.g. BNC – British National Corpus). Having found an equivalent which looks suitable, I check it on google.com in order to be sure that it is really used by native speakers (also comparing the number of results). If I cannot find a suitable equivalent (e.g. Rus-Eng «качество вирбельбанка немаловажно для хорошего звучания пианино») or I am not sure that the one I found is perfect («pinblock»?), I make a research about what «вирбельбанк» is, how it can be named otherwise and how it looks, then I search for it in google.com images. I also happen to make use of dtSearch.
